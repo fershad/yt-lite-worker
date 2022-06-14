@@ -14,6 +14,7 @@
     "prettier": "^1.18.2"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.11",
     "himalaya": "^1.1.0"
   }
 }
