@@ -1,0 +1,3 @@
+name = "yt-lite-worker"
+compatibility_date = "2022-06-10"
+main="./index.js"
