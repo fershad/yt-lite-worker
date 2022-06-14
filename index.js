@@ -42,7 +42,7 @@ class addJS {
 }
 
 async function handleRequest(req) {
-  const res = await fetch('https://unsuitable-cushion.surge.sh/')
+  const res = await fetch(req)
   const html = await findIframes(res);
   const newRes = new Response(html, {
     headers: {
