@@ -20,9 +20,9 @@ async function findIframes(req) {
       const height = $(iframe).attr('height')
       const className = $(iframe).attr('class')
       const params = new URL(src).searchParams.toString()
-      
+
       if (id) {
-        const lite = `<lite-youtube class="${className || ''}" videoid="${id}" autoload nocookie params=${params}> </lite-youtube>`
+        const lite = `<lite-youtube class="${className || ''}" videoid="${id}" autoload nocookie params='${params}'> </lite-youtube>`
         $(iframe).replaceWith(lite)
       }
     }
@@ -43,20 +43,26 @@ class addJS {
 }
 
 async function handleRequest(req) {
-  const demo = req.headers.get('x-demo');
+  const acceptHeader = req.headers.get('accept');
+  
+  if (acceptHeader && acceptHeader.indexOf('text/html') >= 0) {
+    const demo = req.headers.get('x-demo');
+    const url = demo ? new URL(demo) : new URL(request.url);
+    const res = await fetch(url)
+    const html = await findIframes(res);
+    const newRes = new Response(html, {
+      headers: {
+        'Content-Type': 'text/html',
+      }
+    });
 
-  const res = demo ? await fetch('https://unsuitable-cushion.surge.sh/') : await fetch(req)
-  const html = await findIframes(res);
-  const newRes = new Response(html, {
-    headers: {
-      'Content-Type': 'text/html',
-    }
-  });
 
+    const rewritter = new HTMLRewriter().on('body', new addJS())
 
-  const rewritter = new HTMLRewriter().on('body', new addJS())
+    return rewritter.transform(newRes)
+  }
 
-  return rewritter.transform(newRes)
+  return fetch(req.url, req)
 }
 
 addEventListener('fetch', event => {
