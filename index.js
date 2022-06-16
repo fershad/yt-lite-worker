@@ -18,10 +18,11 @@ async function findIframes(req) {
       const id = await getID(src)
       const width = $(iframe).attr('width')
       const height = $(iframe).attr('height')
+      const className = $(iframe).attr('class')
       const params = new URL(src).searchParams.toString()
       
       if (id) {
-        const lite = `<lite-youtube  videoid="${id}" autoload nocookie params=${params}> </lite-youtube>`
+        const lite = `<lite-youtube class="${className || ''}" videoid="${id}" autoload nocookie params=${params}> </lite-youtube>`
         $(iframe).replaceWith(lite)
       }
     }
