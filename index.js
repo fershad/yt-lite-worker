@@ -16,8 +16,6 @@ async function findIframes(req) {
     for (const iframe of $(iframes)) {
       let src = $(iframe).attr('src')
       const id = await getID(src)
-      const width = $(iframe).attr('width')
-      const height = $(iframe).attr('height')
       const className = $(iframe).attr('class')
       const params = new URL(src).searchParams.toString()
 
