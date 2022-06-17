@@ -44,8 +44,7 @@ async function handleRequest(req) {
   const acceptHeader = req.headers.get('accept');
   
   if (acceptHeader && acceptHeader.indexOf('text/html') >= 0) {
-    const demo = req.headers.get('x-demo');
-    const url = demo ? new URL(demo) : new URL(request.url);
+    const url = new URL(request.url);
     const res = await fetch(url)
     const html = await findIframes(res);
     const newRes = new Response(html, {
