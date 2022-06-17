@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
 
 const options = {
-  autoload: true,
+  autoload: false,
   nocookie: true,
 }
 
@@ -25,7 +25,7 @@ async function findIframes(req) {
       const params = new URL(src).searchParams.toString()
 
       if (id) {
-        const lite = `<lite-youtube class="${className || ''}" videoid="${id}" ${{...options}} params='${params}'> </lite-youtube>`
+        const lite = `<lite-youtube class="${className || ''}" videoid="${id}" ${options.autoload ? 'autoload' : ''} ${options.nocookie ? 'nocookie' : ''} params='${params}'> </lite-youtube>`
         $(iframe).replaceWith(lite)
       }
     }
