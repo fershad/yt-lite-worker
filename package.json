@@ -2,7 +2,7 @@
   "private": true,
   "name": "yt-lite-worker",
   "version": "1.0.0",
-  "description": "A template for kick starting a Cloudflare Workers project",
+  "description": "A Cloudflare Worker that finds YouTube embeds on a page and replaces them with the Lite YouTube Embed facade.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
