@@ -2,6 +2,11 @@ import * as cheerio from 'cheerio';
 
 const ytIdRegex = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
 
+const options = {
+  autoload: true,
+  nocookie: true,
+}
+
 function getID(url) {
   var match = url.match(ytIdRegex);
   return (match && match[7].length == 11) ? match[7] : false;
@@ -20,7 +25,7 @@ async function findIframes(req) {
       const params = new URL(src).searchParams.toString()
 
       if (id) {
-        const lite = `<lite-youtube class="${className || ''}" videoid="${id}" autoload nocookie params='${params}'> </lite-youtube>`
+        const lite = `<lite-youtube class="${className || ''}" videoid="${id}" ${{...options}} params='${params}'> </lite-youtube>`
         $(iframe).replaceWith(lite)
       }
     }
