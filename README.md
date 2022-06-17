@@ -20,3 +20,12 @@ By default the YouTube player downloads just over 1MB of data when it is loaded 
 ## Options
 
 This Worker uses [justinribeiro/lite-youtube](https://github.com/justinribeiro/lite-youtube). You can adjust the script to use any of options available in that web component.
+
+## Try it out
+
+You can test this worker locally using [Wrangler](https://developers.cloudflare.com/workers/wrangler/get-started/).
+
+1. Checkout the `demo` branch.
+1. Run the `wrangler dev` command.
+1. Open your browser and navigate the running local server.
+1. Using an extension like [ModHeader in Chrome](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj), set a new Request header `x-demo: <the URL you want to test>`.
